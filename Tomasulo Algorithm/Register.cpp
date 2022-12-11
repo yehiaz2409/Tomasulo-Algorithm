@@ -1,6 +1,9 @@
 #include "Register.h"
 Register::Register(string n){
     name = n;
+    value = 0;
+    busy = false;
+    Q = "";
 }
 void Register::set_value(int v){
     value = v;
