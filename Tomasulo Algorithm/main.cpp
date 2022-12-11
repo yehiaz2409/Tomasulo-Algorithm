@@ -25,10 +25,25 @@ void issue(int cycle, vector <Instruction> &instruction_table, vector <Reservati
                                 if(register_table[k].get_busy() == false){
                                     reservation_station_table[j].set_Vj(to_string(register_table[k].get_value()));
                                     reservation_station_table[j].set_Qj("");
+                                    reservation_station_table[j].set_A(instruction_table[i].get_rs2());
+                                    instruction_table[i].set_issue(cycle + 1);
+                                    for(int x = 0; x < register_table.size(); x++){
+                                        if(register_table[x].get_name() == instruction_table[i].get_rd()){
+                                            register_table[x].set_Q(reservation_station_table[j].get_name());
+                                        }
+                                    }
+                                    break;
                                 }
                                 else{
                                     reservation_station_table[j].set_Qj(register_table[k].get_Q());
                                     reservation_station_table[j].set_Vj("");
+                                    reservation_station_table[j].set_A("");
+                                    for(int x = 0; x < register_table.size(); x++){
+                                        if(register_table[x].get_name() == instruction_table[i].get_rd()){
+                                            register_table[x].set_Q(reservation_station_table[j].get_name());
+                                        }
+                                    }
+                                    break;
                                 }
                             }
                         }
@@ -36,14 +51,16 @@ void issue(int cycle, vector <Instruction> &instruction_table, vector <Reservati
                         // [j].set_Vk("0");
                         // reservation_station_table[j].set_Qj("0");
                         // reservation_station_table[reservation_station_tablej].set_Qk("0");
-                        reservation_station_table[j].set_A(instruction_table[i].get_rs1());
-                        instruction_table[i].set_issue(cycle);
-                        for(int k = 0; k < register_table.size(); k++){
-                            if(register_table[k].get_name() == instruction_table[i].get_rd()){
-                                register_table[k].set_Q(reservation_station_table[j].get_name());
-                            }
-                        }
-                        break;
+
+
+                        // reservation_station_table[j].set_A(instruction_table[i].get_rs2());
+                        // instruction_table[i].set_issue(cycle + 1);
+                        // for(int k = 0; k < register_table.size(); k++){
+                        //     if(register_table[k].get_name() == instruction_table[i].get_rd()){
+                        //         register_table[k].set_Q(reservation_station_table[j].get_name());
+                        //     }
+                        // }
+                        // break;
                     }
                 }
             }
@@ -146,7 +163,7 @@ void issue(int cycle, vector <Instruction> &instruction_table, vector <Reservati
                         reservation_station_table[j].set_A(instruction_table[i].get_rs1());
                         instruction_table[i].set_issue(cycle);
                         for(int k = 0; k < register_table.size(); k++){
-                            if(register_table[k].get_name() == instruction_table[i].get_rd()){
+                            if(register_table[k].get_name() == instruction_table[i].get_rd() && register_table[k].get_busy() == false){
                                 register_table[k].set_Q(reservation_station_table[j].get_name());
                             }
                         }
