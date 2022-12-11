@@ -53,7 +53,7 @@ void issue(int cycle, vector <Instruction> &instruction_table, vector <Reservati
                     break;
                 }
             }
-            else if(instruction_table[i].get_op() == "Store"){
+            else if(instruction_table[i].get_op() == "STORE"){
                 for(int j = 0; j < reservation_station_table.size(); j++){
                     if(reservation_station_table[j].get_name() == "Store" && reservation_station_table[j].get_busy() == false){
                         issue = true;
@@ -150,7 +150,7 @@ void issue(int cycle, vector <Instruction> &instruction_table, vector <Reservati
                     break;
                 }
             }
-            else if(instruction_table[i].get_op() == "ADD" || instruction_table[i].get_op() == "ADDI"){
+            else if(instruction_table[i].get_op() == "ADD" || instruction_table[i].get_op() == "ADDI" || instruction_table[i].get_op() == "SUB"){
                 for(int j = 0; j < reservation_station_table.size(); j++){
                     if(reservation_station_table[j].get_name() == "Add" && reservation_station_table[j].get_busy() == false){
                         issue = true;
@@ -278,7 +278,7 @@ void issue(int cycle, vector <Instruction> &instruction_table, vector <Reservati
                     break;
                 }
             }
-            else if(instruction_table[i].get_op() == "MULT"){
+            else if(instruction_table[i].get_op() == "MULT" || instruction_table[i].get_op() == "DIV"){
                 for(int j = 0; j < reservation_station_table.size(); j++){
                     if(reservation_station_table[j].get_name() == "Mult" && reservation_station_table[j].get_busy() == false){
                         issue = true;
